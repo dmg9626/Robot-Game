@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-	public float time;
+	public float lifeSpan;
+	private float time = 0;
 	public float speed;
 	public Projectile() {
 		
@@ -13,10 +14,11 @@ public class Projectile : MonoBehaviour {
 		trajectory.x *= speed;
 		trajectory.y *= speed;
 		GetComponent<Rigidbody2D>().velocity = trajectory;
+		Debug.Log("Trajectory: " + trajectory);
 	}
 	
 	void Update () {
-		if(time > 4) {
+		if(time > lifeSpan) {
 			Destroy(gameObject);
 		}
 		else {
