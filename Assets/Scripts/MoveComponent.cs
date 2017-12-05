@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveComponent : MonoBehaviour {
-	public float moveSpeed;
+	private float moveSpeed;
 	Animator animator;
 
 	/// <summary>
@@ -14,6 +14,7 @@ public class MoveComponent : MonoBehaviour {
 	void Start()
 	{
 		animator = gameObject.GetComponent<Animator>();
+		moveSpeed = GetComponent<Actor>().speed;
 	}
 
 	public void ManageMovement(float horizontal,float vertical) 
