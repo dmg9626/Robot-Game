@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveComponent : MonoBehaviour {
+	/// <summary>
+	/// Movement speed
+	/// </summary>
 	private float moveSpeed;
+
+	/// <summary>
+	/// Animator
+	/// </summary>
 	Animator animator;
 
 	/// <summary>
@@ -17,22 +24,35 @@ public class MoveComponent : MonoBehaviour {
 		moveSpeed = GetComponent<Actor>().speed;
 	}
 
+	/// <summary>
+	/// Moves/animates actor based on horizontal/vertical input
+	/// </summary>
+	/// <param name="horizontal">Horizontal input</param>
+	/// <param name="vertical">Vertical input</param>
 	public void ManageMovement(float horizontal,float vertical) 
     {
-        
+        // Move actor in direction of input
         Vector2 movement = new Vector2 (horizontal * moveSpeed, vertical * moveSpeed);
         gameObject.GetComponent<Rigidbody2D>().velocity = movement;
 
+		// Animate walking if receiving input
         if (horizontal != 0f || vertical != 0f) {
+			Debug.Log(gameObject.name + " moving");
+
             animator.SetBool("Moving", true); 
-            animateWalk(horizontal, vertical);
+            AnimateWalk(horizontal, vertical);
         } 
         else {
             animator.SetBool("Moving", false);
         }
     }
 
-    void animateWalk(float horizontal,float vertical) 
+	/// <summary>
+	/// Animates movement based on horizontal/vertical input
+	/// </summary>
+	/// <param name="horizontal">Horizontal input</param>
+	/// <param name="vertical">Vertical input</param>
+    private void AnimateWalk(float horizontal,float vertical) 
     {
 		// Get current direction
         currentDirection = (BaseConstants.Direction)animator.GetInteger("Direction");
@@ -42,7 +62,13 @@ public class MoveComponent : MonoBehaviour {
 		animator.SetInteger("Direction", newDirection);
     }
 
-	BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
+	/// <summary>
+	/// Calculates direction for player to face based on horizontal/vertical input
+	/// </summary>
+	/// <param name="horizontal">Horizontal input</param>
+	/// <param name="vertical">Vertical input</param>
+	/// <returns>Direction to face</returns>
+	private BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
 	{
 		BaseConstants.Direction direction = currentDirection;
 
@@ -84,12 +110,15 @@ public class MoveComponent : MonoBehaviour {
 			}
 		}
 
-		Debug.Log(horizontal + "," + vertical);
-
+		Debug.Log("Facing " + direction);
 		return direction;
 	}
 
-	bool IsVertical(BaseConstants.Direction direction){
+	/// <summary>
+	/// Returns true if direction is vertical
+	/// </summary>
+	/// <param name="direction">Direction</param>
+	private bool IsVertical(BaseConstants.Direction direction){
 		return (direction == BaseConstants.Direction.Up || direction == BaseConstants.Direction.Down);
 	}
 }

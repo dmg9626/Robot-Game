@@ -3,32 +3,22 @@ using System.Collections;
 
 public class PlayerController : Actor 
 {
+    /// <summary>
+    /// Actor player is currently controlling
+    /// </summary>
     public GameObject actor;
-
-    // Use this for initialization
-	void Start () 
-	{
-        actor = gameObject;
-	}
-
 
     void Update () 
     {
-        // Get player input
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-
-        // Move/animate player
-        GetComponent<MoveComponent>().ManageMovement(horizontal, vertical);
-
         // Get commands
-        Command commandSpace = new PrimaryShootCommand();
+        Command shootCommand = new PrimaryShootCommand();
+        Command moveCommand = new MoveCommand();
 
         // Execute commands
         if(Input.GetKeyDown(KeyCode.Space)) {
-            commandSpace.execute(gameObject);
+            shootCommand.execute(gameObject);
         }
-    }
 
-    
+        moveCommand.execute(actor);
+    }
 }
