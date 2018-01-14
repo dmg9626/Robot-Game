@@ -3,18 +3,22 @@ using System.Collections;
 
 public class PlayerController : Actor 
 {
+    /// <summary>
+    /// Actor player is currently controlling
+    /// </summary>
     public GameObject actor;
 
     void Update () 
     {
         // Get commands
-        Command commandSpace = new PrimaryShootCommand();
-        Command movement = new MoveCommand();
+        Command shootCommand = new PrimaryShootCommand();
+        Command moveCommand = new MoveCommand();
 
         // Execute commands
         if(Input.GetKeyDown(KeyCode.Space)) {
-            commandSpace.execute(gameObject);
+            shootCommand.execute(gameObject);
         }
-        movement.execute(actor);
+
+        moveCommand.execute(actor);
     }
 }

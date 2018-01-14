@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveComponent : MonoBehaviour {
+	/// <summary>
+	/// Movement speed
+	/// </summary>
 	private float moveSpeed;
+
+	/// <summary>
+	/// Animator
+	/// </summary>
 	Animator animator;
 
 	/// <summary>
@@ -30,6 +37,8 @@ public class MoveComponent : MonoBehaviour {
 
 		// Animate walking if receiving input
         if (horizontal != 0f || vertical != 0f) {
+			Debug.Log(gameObject.name + " moving");
+
             animator.SetBool("Moving", true); 
             AnimateWalk(horizontal, vertical);
         } 
@@ -58,7 +67,7 @@ public class MoveComponent : MonoBehaviour {
 	/// </summary>
 	/// <param name="horizontal">Horizontal input</param>
 	/// <param name="vertical">Vertical input</param>
-	/// <returns></returns>
+	/// <returns>Direction to face</returns>
 	private BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
 	{
 		BaseConstants.Direction direction = currentDirection;
@@ -101,8 +110,7 @@ public class MoveComponent : MonoBehaviour {
 			}
 		}
 
-		Debug.Log(horizontal + "," + vertical);
-
+		Debug.Log("Facing " + direction);
 		return direction;
 	}
 
