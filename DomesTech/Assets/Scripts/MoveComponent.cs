@@ -37,7 +37,7 @@ public class MoveComponent : MonoBehaviour {
 
 		// Animate walking if receiving input
         if (horizontal != 0f || vertical != 0f) {
-			Debug.Log(gameObject.name + " moving");
+			GameController.LogPhysics.Log(gameObject.name + " moving");
 
             animator.SetBool("Moving", true); 
             AnimateWalk(horizontal, vertical);
@@ -110,7 +110,7 @@ public class MoveComponent : MonoBehaviour {
 			}
 		}
 
-		Debug.Log("Facing " + direction);
+		GameController.LogPhysics.Log("Facing " + direction);
 		return direction;
 	}
 
