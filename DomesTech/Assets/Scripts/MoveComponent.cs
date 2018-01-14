@@ -17,22 +17,18 @@ public class MoveComponent : MonoBehaviour {
 		moveSpeed = GetComponent<Actor>().speed;
 	}
 
-	void Update()
-	{
-        // Get player input
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-
-        // Move/animate player
-        ManageMovement(horizontal, vertical);
-	}
-
+	/// <summary>
+	/// Moves/animates actor based on horizontal/vertical input
+	/// </summary>
+	/// <param name="horizontal">Horizontal input</param>
+	/// <param name="vertical">Vertical input</param>
 	public void ManageMovement(float horizontal,float vertical) 
     {
-        
+        // Move actor in direction of input
         Vector2 movement = new Vector2 (horizontal * moveSpeed, vertical * moveSpeed);
         gameObject.GetComponent<Rigidbody2D>().velocity = movement;
 
+		// Animate walking if receiving input
         if (horizontal != 0f || vertical != 0f) {
             animator.SetBool("Moving", true); 
             AnimateWalk(horizontal, vertical);
@@ -42,6 +38,11 @@ public class MoveComponent : MonoBehaviour {
         }
     }
 
+	/// <summary>
+	/// Animates movement based on horizontal/vertical input
+	/// </summary>
+	/// <param name="horizontal">Horizontal input</param>
+	/// <param name="vertical">Vertical input</param>
     private void AnimateWalk(float horizontal,float vertical) 
     {
 		// Get current direction
@@ -52,6 +53,12 @@ public class MoveComponent : MonoBehaviour {
 		animator.SetInteger("Direction", newDirection);
     }
 
+	/// <summary>
+	/// Calculates direction for player to face based on horizontal/vertical input
+	/// </summary>
+	/// <param name="horizontal">Horizontal input</param>
+	/// <param name="vertical">Vertical input</param>
+	/// <returns></returns>
 	private BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
 	{
 		BaseConstants.Direction direction = currentDirection;
@@ -99,6 +106,10 @@ public class MoveComponent : MonoBehaviour {
 		return direction;
 	}
 
+	/// <summary>
+	/// Returns true if direction is vertical
+	/// </summary>
+	/// <param name="direction">Direction</param>
 	private bool IsVertical(BaseConstants.Direction direction){
 		return (direction == BaseConstants.Direction.Up || direction == BaseConstants.Direction.Down);
 	}
