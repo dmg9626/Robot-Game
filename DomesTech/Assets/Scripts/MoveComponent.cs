@@ -17,6 +17,16 @@ public class MoveComponent : MonoBehaviour {
 		moveSpeed = GetComponent<Actor>().speed;
 	}
 
+	void Update()
+	{
+        // Get player input
+        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+
+        // Move/animate player
+        ManageMovement(horizontal, vertical);
+	}
+
 	public void ManageMovement(float horizontal,float vertical) 
     {
         
@@ -25,14 +35,14 @@ public class MoveComponent : MonoBehaviour {
 
         if (horizontal != 0f || vertical != 0f) {
             animator.SetBool("Moving", true); 
-            animateWalk(horizontal, vertical);
+            AnimateWalk(horizontal, vertical);
         } 
         else {
             animator.SetBool("Moving", false);
         }
     }
 
-    void animateWalk(float horizontal,float vertical) 
+    private void AnimateWalk(float horizontal,float vertical) 
     {
 		// Get current direction
         currentDirection = (BaseConstants.Direction)animator.GetInteger("Direction");
@@ -42,7 +52,7 @@ public class MoveComponent : MonoBehaviour {
 		animator.SetInteger("Direction", newDirection);
     }
 
-	BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
+	private BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
 	{
 		BaseConstants.Direction direction = currentDirection;
 
@@ -89,7 +99,7 @@ public class MoveComponent : MonoBehaviour {
 		return direction;
 	}
 
-	bool IsVertical(BaseConstants.Direction direction){
+	private bool IsVertical(BaseConstants.Direction direction){
 		return (direction == BaseConstants.Direction.Up || direction == BaseConstants.Direction.Down);
 	}
 }
