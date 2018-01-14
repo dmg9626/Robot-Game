@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
+	[Header("Loggers")]
 	public bool logPhysics;
 
 	void Start()
