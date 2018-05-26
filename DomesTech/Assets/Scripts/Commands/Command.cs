@@ -12,6 +12,9 @@ public class Command : MonoBehaviour {
         ATTACK
     }
 
+    /// <summary>
+    /// Command type
+    /// </summary>
     public Type type;
 
     /// <summary>

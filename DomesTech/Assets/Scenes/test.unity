@@ -296,7 +296,8 @@ MonoBehaviour:
   speed: 5
   isPlayer: 1
   inventory:
-  - {fileID: 0}
+  - {fileID: 1592299666693196, guid: 7a7ad30828af41740a6ce6bd674afbf9, type: 2}
+  actionQueue: 0000000001000000
   actor: {fileID: 413057922}
 --- !u!1 &906713151
 GameObject:
