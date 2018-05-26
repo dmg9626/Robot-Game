@@ -17,4 +17,14 @@ public class Actor : MonoBehaviour {
 	/// True if actor is player character
 	/// </summary>
 	public bool isPlayer;
+
+    /// <summary>
+    /// Contains objects that are used by the actor
+    /// </summary>
+    public List<GameObject> inventory;
+
+    /// <summary>
+    /// Represents order in which player actions will occur
+    /// </summary>
+    public List<Command.Type> actionQueue;
 }

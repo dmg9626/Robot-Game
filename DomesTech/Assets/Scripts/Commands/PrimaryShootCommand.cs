@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PrimaryShootCommand : Command {
 
-	GameObject bullet;
-	public PrimaryShootCommand() {}
+	public PrimaryShootCommand() { type = Type.ATTACK; }
 
+    /// <summary>
+    /// Bullet to be shot
+    /// </summary>
+    public GameObject bullet;
 
-	/// <summary>
-	/// Executes Weapon's PrimaryAttack() method
-	/// <param name="actor">Actor to execute command on</param>
-	/// </summary>
-	public override void execute(GameObject actor) {
+    /// <summary>
+    /// Executes Weapon's PrimaryAttack() method
+    /// <param name="actor">Actor to execute command on</param>
+    /// </summary>
+    public override void execute(GameObject actor) {
 		Debug.Log("Executing ShootCommand on " + actor.name);
 
 		// Parse actor direction

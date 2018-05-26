@@ -2,9 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command {
+public class Command : MonoBehaviour {
 
 	public Command() {}
 
-	public virtual void execute(GameObject actor) {}
+    public enum Type
+    {
+        MOVEMENT,
+        ATTACK
+    }
+
+    public Type type;
+
+    /// <summary>
+    /// Executes the command on the provided actor.
+    /// </summary>
+    /// <param name="actor">The actor.</param>
+    public virtual void execute(GameObject actor) {}
 }
