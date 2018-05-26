@@ -18,7 +18,7 @@ public class PrimaryShootCommand : Command {
     /// </summary>
     public override void execute(GameObject actor) {
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("Shoot"))
         {
             Shoot(actor);
         }

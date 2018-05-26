@@ -9,8 +9,14 @@ public class PlayerController : Actor
     /// </summary>
     public GameObject actor;
 
-    
+    /// <summary>
+    /// Shoots a projectile in direction player is facing
+    /// </summary>
     protected Command shootCommand;
+
+    /// <summary>
+    /// Moves/animates player
+    /// </summary>
     protected Command moveCommand;
 
     /// <summary>
