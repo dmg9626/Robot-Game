@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : Actor 
 {
@@ -8,17 +9,38 @@ public class PlayerController : Actor
     /// </summary>
     public GameObject actor;
 
+    /// <summary>
+    /// Shoots a projectile in direction player is facing
+    /// </summary>
+    protected Command shootCommand;
+
+    /// <summary>
+    /// Moves/animates player
+    /// </summary>
+    protected Command moveCommand;
+
+    /// <summary>
+    /// Collection of commands to execute
+    /// </summary>
+    protected List<Command> commands;
+
+    void Start() {
+        // Get commands
+        shootCommand = new PrimaryShootCommand();
+        moveCommand = new MoveCommand();
+
+        // TODO: do this more gracefully
+        commands = new List<Command> { shootCommand, moveCommand };
+    }
+
     void Update () 
     {
-        // Get commands
-        Command shootCommand = new PrimaryShootCommand();
-        Command moveCommand = new MoveCommand();
-
-        // Execute commands
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            shootCommand.execute(gameObject);
+        // Iterate through each commandType in action queue and execute corresponding command
+        foreach(Command.Type commandType in actionQueue)
+        {
+            commands.Find(i => i.type == commandType).execute(gameObject);
         }
-
-        moveCommand.execute(actor);
+        //moveCommand.execute(actor);
+        //shootCommand.execute(gameObject);
     }
 }

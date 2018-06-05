@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveCommand : Command {
-	public MoveCommand() {}
+	public MoveCommand() { type = Type.MOVEMENT; }
 
 	public override void execute(GameObject actor) {
 
