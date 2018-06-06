@@ -24,7 +24,10 @@ public class Actor : MonoBehaviour {
     public List<GameObject> inventory;
 
     /// <summary>
-    /// Represents order in which player actions will occur
+    /// List of commands available to the actor
     /// </summary>
-    public List<Command.Type> actionQueue;
+    protected List<Command.Type> actionList = new List<Command.Type>() {
+		Command.Type.MOVEMENT,
+		Command.Type.ATTACK
+	};
 }
