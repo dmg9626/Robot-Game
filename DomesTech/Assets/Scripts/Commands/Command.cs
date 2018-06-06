@@ -13,7 +13,7 @@ public class Command : MonoBehaviour {
     }
 
     /// <summary>
-    /// Command type
+    /// Type - used to group similar commands (ex. MOVEMENT = jumping/walking commands, ATTACK = melee/projectile attack commands)
     /// </summary>
     public Type type;
 
@@ -21,5 +21,5 @@ public class Command : MonoBehaviour {
     /// Executes the command on the provided actor.
     /// </summary>
     /// <param name="actor">The actor.</param>
-    public virtual void execute(GameObject actor) {}
+    public virtual void execute(Actor actor) {}
 }

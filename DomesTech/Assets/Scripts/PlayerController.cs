@@ -7,7 +7,7 @@ public class PlayerController : Actor
     /// <summary>
     /// Actor player is currently controlling
     /// </summary>
-    public GameObject actor;
+    public Actor actor;
 
     /// <summary>
     /// Shoots a projectile in direction player is facing
@@ -29,16 +29,22 @@ public class PlayerController : Actor
         shootCommand = new PrimaryShootCommand();
         moveCommand = new MoveCommand();
 
-        // TODO: do this more gracefully
+        // TODO: do this more gracefully, allow tweaking in GUI
         commands = new List<Command> { shootCommand, moveCommand };
+
+        // Commands control player (this gameObject)
+        actor = GetComponent<Actor>();
     }
 
     void Update () 
     {
-        // Iterate through each commandType in action queue and execute corresponding command
-        foreach(Command.Type commandType in actionQueue)
-        {
-            commands.Find(i => i.type == commandType).execute(gameObject);
+        // Iterate through each commandType in action list
+        foreach(Command.Type commandType in actionList) {
+
+            // Execute each corresponding command
+            foreach(Command command in commands.FindAll(i => i.type == commandType)) {
+                command.execute(actor);
+            }
         }
         //moveCommand.execute(actor);
         //shootCommand.execute(gameObject);

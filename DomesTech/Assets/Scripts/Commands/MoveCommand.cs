@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveCommand : Command {
 	public MoveCommand() { type = Type.MOVEMENT; }
 
-	public override void execute(GameObject actor) {
+	public override void execute(Actor actor) {
 
 		// Get player input
         float vertical = Input.GetAxis("Vertical");

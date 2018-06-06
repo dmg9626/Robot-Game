@@ -16,7 +16,7 @@ public class PrimaryShootCommand : Command {
     /// Executes Weapon's PrimaryAttack() method
     /// <param name="actor">Actor to execute command on</param>
     /// </summary>
-    public override void execute(GameObject actor) {
+    public override void execute(Actor actor) {
 
         if(Input.GetButtonDown("Shoot"))
         {
@@ -25,7 +25,7 @@ public class PrimaryShootCommand : Command {
 		
 	}
 
-    private void Shoot(GameObject actor)
+    private void Shoot(Actor actor)
     {
         Debug.Log("Executing ShootCommand on " + actor.name);
 
