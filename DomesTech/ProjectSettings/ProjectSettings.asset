@@ -588,7 +588,7 @@ PlayerSettings:
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled: {}
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 54fe349d-1a8c-4fe7-a05b-9fe9816f568d
   projectName: DomesTech
   organizationId: dmg9626
