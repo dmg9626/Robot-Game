@@ -25,7 +25,7 @@ public class MoveComponent : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Moves/animates actor based on horizontal/vertical input
+	/// Moves/animates actor based on provided horizontal/vertical input from MoveCommand
 	/// </summary>
 	/// <param name="horizontal">Horizontal input</param>
 	/// <param name="vertical">Vertical input</param>
@@ -37,8 +37,6 @@ public class MoveComponent : MonoBehaviour {
 
 		// Animate walking if receiving input
         if (horizontal != 0f || vertical != 0f) {
-			GameController.LogPhysics.Log(gameObject.name + " moving");
-
             animator.SetBool("Moving", true); 
             AnimateWalk(horizontal, vertical);
         } 
@@ -110,7 +108,10 @@ public class MoveComponent : MonoBehaviour {
 			}
 		}
 
-		GameController.LogPhysics.Log("Facing " + direction);
+        if(currentDirection != direction) {
+            GameController.LogCommands.Log("Facing direction: " + direction);
+        }
+
 		return direction;
 	}
 
