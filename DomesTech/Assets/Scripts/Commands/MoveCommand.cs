@@ -8,10 +8,22 @@ public class MoveCommand : Command {
 	public override void execute(GameObject actor) {
 
 		// Get player input
+        // TODO: design this command to handle enemy AI movement as well
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 
-        // Move/animate player
-        actor.GetComponent<MoveComponent>().ManageMovement(horizontal, vertical);
+        MoveComponent moveComponent = actor.GetComponent<MoveComponent>();
+
+        // Check for attached MoveComponent
+        if(moveComponent != null)
+        {
+            // Move/animate player
+            moveComponent.ManageMovement(horizontal, vertical);
+        }
+        else
+        {
+            GameController.LogCommands.LogWarning("Unable to execute MoveCommand on actor " + actor.name + " - no MoveComponent found");
+        }
+        
 	}
 }
