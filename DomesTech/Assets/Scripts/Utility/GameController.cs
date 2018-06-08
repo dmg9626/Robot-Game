@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 
     /// <summary>
     /// Command logger
-    /// Ideally this should allow filtering by Command and Actor executing it
+    // Ideally this should allow filtering by Command and Actor executing it
     /// </summary>
     public static LogHelper LogCommands;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command : MonoBehaviour {
+public class Command {
 
 	public Command() {}
 
@@ -21,5 +21,5 @@ public class Command : MonoBehaviour {
     /// Executes the command on the provided actor.
     /// </summary>
     /// <param name="actor">The actor.</param>
-    public virtual void execute(GameObject actor) {}
+    public virtual void execute(Actor actor) {}
 }
