@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class PrimaryShootCommand : Command {
 
-	public PrimaryShootCommand() { type = Type.ATTACK; }
+	public PrimaryShootCommand() {
+        type = Type.ATTACK;
+    }
 
     /// <summary>
     /// Bullet to be shot
     /// </summary>
-    public GameObject bullet;
+    public Projectile projectile;
 
     /// <summary>
     /// Executes Weapon's PrimaryAttack() method
     /// <param name="actor">Actor to execute command on</param>
     /// </summary>
-    public override void execute(GameObject actor) {
+    public override void execute(Actor actor) {
 
         if(Input.GetButtonDown("Shoot"))
         {
@@ -25,21 +27,29 @@ public class PrimaryShootCommand : Command {
 		
 	}
 
-    private void Shoot(GameObject actor)
+    private void Shoot(Actor actor)
     {
         Debug.Log("Executing ShootCommand on " + actor.name);
 
-        // Parse actor direction
+        // Get direction actor is facing (TODO: consider handling this for actors that don't rotate or don't have an Animator)
         BaseConstants.Direction direction = (BaseConstants.Direction)actor.GetComponent<Animator>().GetInteger("Direction");
         Debug.Log("Bullet direction: " + direction.ToString());
 
-        // Instantiate bullet
-        bullet = GameObject.Instantiate(Resources.Load("Bullet")) as GameObject;
+        // Instantiate bullet (TODO: maybe make this less gross)
+        projectile = GameObject.Instantiate(actor.inventory.Find(i => i.GetComponent<Projectile>())).GetComponent<Projectile>();
+        if(projectile != null)
+        {
+            // Set bullet on player
+            projectile.transform.position = actor.transform.position;
 
-        // Set bullet on player
-        bullet.transform.position = actor.transform.position;
+            SetProjectileTrajectory(projectile, direction);
+        }
+        else
+        {
+            GameController.LogCommands.LogWarning("Primary Shoot Command (" + actor.name + "): could not find projectile on actor");
+        }
 
-        SetProjectileTrajectory(bullet, direction);
+        
     }
 
     /// <summary>
@@ -48,28 +58,28 @@ public class PrimaryShootCommand : Command {
     /// <param name="direction">Direction to send bullet</param>
     /// </summary>
 
-    private void SetProjectileTrajectory(GameObject projectile, BaseConstants.Direction direction)
+    private void SetProjectileTrajectory(Projectile projectile, BaseConstants.Direction direction)
 	{
 		// Start with base trajectory (0,0)
 		Vector2 trajectory = new Vector2(0,0);
 
-		// Calculate trajectory by direction
-		if(direction.Equals(BaseConstants.Direction.Up)) {
-			trajectory.y = 1;
-		}
-		else if(direction.Equals(BaseConstants.Direction.Right)) {
-			trajectory.x = 1;
-		}
-		else if(direction.Equals(BaseConstants.Direction.Down)) {
-			trajectory.y = -1;
-		}
-		else if(direction.Equals(BaseConstants.Direction.Left)) {
-			trajectory.x = -1;
-		}
+        switch(direction)
+        {
+            case BaseConstants.Direction.Up:
+                trajectory.y = 1;
+                break;
+            case BaseConstants.Direction.Down:
+                trajectory.y = -1;
+                break;
+            case BaseConstants.Direction.Left:
+                trajectory.x = -1;
+                break;
+            case BaseConstants.Direction.Right:
+                trajectory.x = 1;
+                break;
+        }
 
-		
-
-		// Set trajectory (hard-coded to right)
-		projectile.GetComponent<Projectile>().SetTrajectory(trajectory);
+		// Set trajectory
+		projectile.SetTrajectory(trajectory);
 	}
 }

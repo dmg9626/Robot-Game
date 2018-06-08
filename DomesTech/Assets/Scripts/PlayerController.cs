@@ -38,7 +38,7 @@ public class PlayerController : Actor
         // Iterate through each commandType in action queue and execute corresponding command
         foreach(Command.Type commandType in actionQueue)
         {
-            commands.Find(i => i.type == commandType).execute(gameObject);
+            commands.Find(i => i.type == commandType).execute(this);
         }
         //moveCommand.execute(actor);
         //shootCommand.execute(gameObject);

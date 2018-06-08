@@ -11,9 +11,7 @@ public class Projectile : MonoBehaviour {
 	}
 
 	public void SetTrajectory(Vector2 trajectory) {
-		trajectory.x *= speed;
-		trajectory.y *= speed;
-		GetComponent<Rigidbody2D>().velocity = trajectory;
+		GetComponent<Rigidbody2D>().velocity = trajectory * speed;
 		Debug.Log("Trajectory: " + trajectory);
 	}
 	

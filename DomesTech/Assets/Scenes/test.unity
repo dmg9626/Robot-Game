@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logPhysics: 1
+  logCommand: 1
 --- !u!4 &315761264
 Transform:
   m_ObjectHideFlags: 0
@@ -297,6 +298,7 @@ MonoBehaviour:
   isPlayer: 1
   inventory:
   - {fileID: 1592299666693196, guid: 7a7ad30828af41740a6ce6bd674afbf9, type: 2}
+  - {fileID: 1636094259731380, guid: 56e3483258acc404ba035ab33d5faab2, type: 2}
   actionQueue: 0000000001000000
   actor: {fileID: 413057922}
 --- !u!1 &906713151
