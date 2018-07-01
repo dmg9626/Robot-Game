@@ -7,11 +7,6 @@ public class Actor : MonoBehaviour {
 	/// Actor health
 	/// </summary>
 	public int health;
-
-	/// <summary>
-	/// Actor movement speed
-	/// </summary>
-	public int speed;
 	
 	/// <summary>
 	/// True if actor is player character
@@ -27,4 +22,13 @@ public class Actor : MonoBehaviour {
     /// Represents order in which player actions will occur
     /// </summary>
     public List<Command.Type> actionQueue;
+
+    /// <summary>
+    /// Called on left mouse click
+    /// </summary>
+    void OnMouseDown()
+    {
+        // Assign this actor to PlayerController
+        GameController.PlayerController.SetActor(this);
+    }
 }

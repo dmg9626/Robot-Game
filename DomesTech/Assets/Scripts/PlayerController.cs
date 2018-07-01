@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerController : Actor 
+public class PlayerController : MonoBehaviour
 {
     /// <summary>
     /// Actor player is currently controlling
     /// </summary>
-    public GameObject actor;
+    public Actor actor;
 
     /// <summary>
     /// Shoots a projectile in direction player is facing
@@ -36,11 +36,20 @@ public class PlayerController : Actor
     void Update () 
     {
         // Iterate through each commandType in action queue and execute corresponding command
-        foreach(Command.Type commandType in actionQueue)
+        foreach(Command.Type commandType in actor.actionQueue)
         {
-            commands.Find(i => i.type == commandType).execute(this);
+            commands.Find(i => i.type == commandType).execute(actor);
         }
         //moveCommand.execute(actor);
         //shootCommand.execute(gameObject);
+    }
+
+    /// <summary>
+    /// Sets the actor controlled by player input
+    /// </summary>
+    /// <param name="actor">Actor</param>
+    public void SetActor(Actor actor)
+    {
+        this.actor = actor;
     }
 }
