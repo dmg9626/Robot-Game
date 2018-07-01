@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,13 +26,28 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     protected List<Command> commands;
 
-    void Start() {
+    void Start()
+    {
         // Get commands
         shootCommand = new PrimaryShootCommand();
         moveCommand = new MoveCommand();
 
         // TODO: do this more gracefully
         commands = new List<Command> { shootCommand, moveCommand };
+
+        // Set actor to player if null
+        if(actor == null)
+        {
+            SetActor(FindPlayer());
+        }
+    }
+
+    /// <summary>
+    /// Returns reference to Player actor in scene (assumes isPlayer = true)
+    /// </summary>
+    public Actor FindPlayer()
+    {
+        return GameObject.FindObjectsOfType<Actor>().Where(i => i.isPlayer).First() as Actor;
     }
 
     void Update () 
@@ -51,5 +68,6 @@ public class PlayerController : MonoBehaviour
     public void SetActor(Actor actor)
     {
         this.actor = actor;
+        Debug.Log("Changed actor to " + actor.name);
     }
 }
