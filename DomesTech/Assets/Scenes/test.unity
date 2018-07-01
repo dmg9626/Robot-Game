@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91293074c9fb64a87a486d7bd2356c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logPhysics: 1
-  logCommand: 1
+  logPhysics: 0
+  logCommand: 0
 --- !u!4 &315761264
 Transform:
   m_ObjectHideFlags: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b308cb7e9b5604066849566744d165ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actor: {fileID: 413057928}
+  actor: {fileID: 0}
 --- !u!1 &413057922
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 413057929}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
