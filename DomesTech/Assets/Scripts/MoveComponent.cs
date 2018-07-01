@@ -6,7 +6,7 @@ public class MoveComponent : MonoBehaviour {
 	/// <summary>
 	/// Movement speed
 	/// </summary>
-	private float moveSpeed;
+	public float moveSpeed;
 
 	/// <summary>
 	/// Animator
@@ -20,8 +20,7 @@ public class MoveComponent : MonoBehaviour {
 
 	void Start()
 	{
-		animator = gameObject.GetComponent<Animator>();
-		moveSpeed = GetComponent<Actor>().speed;
+		animator = GetComponent<Animator>();
 	}
 
 	/// <summary>
@@ -32,7 +31,7 @@ public class MoveComponent : MonoBehaviour {
 	public void ManageMovement(float horizontal,float vertical) 
     {
         // Move actor in direction of input
-        Vector2 movement = new Vector2 (horizontal * moveSpeed, vertical * moveSpeed);
+        Vector2 movement = new Vector2 (horizontal, vertical) * moveSpeed;
         gameObject.GetComponent<Rigidbody2D>().velocity = movement;
 
 		// Animate walking if receiving input

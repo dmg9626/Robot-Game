@@ -7,11 +7,6 @@ public class Actor : MonoBehaviour {
 	/// Actor health
 	/// </summary>
 	public int health;
-
-	/// <summary>
-	/// Actor movement speed
-	/// </summary>
-	public int speed;
 	
 	/// <summary>
 	/// True if actor is player character

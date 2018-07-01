@@ -165,9 +165,10 @@ GameObject:
   - component: {fileID: 413057924}
   - component: {fileID: 413057923}
   - component: {fileID: 413057925}
-  - component: {fileID: 413057927}
   - component: {fileID: 413057928}
   - component: {fileID: 413057926}
+  - component: {fileID: 413057927}
+  - component: {fileID: 413057929}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -262,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657826c2bfdf04de08be9a2eec6d0592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!50 &413057927
 Rigidbody2D:
   serializedVersion: 4
@@ -294,13 +296,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 5
   isPlayer: 1
   inventory:
   - {fileID: 1592299666693196, guid: 7a7ad30828af41740a6ce6bd674afbf9, type: 2}
   - {fileID: 1636094259731380, guid: 56e3483258acc404ba035ab33d5faab2, type: 2}
   actionQueue: 0000000001000000
-  actor: {fileID: 413057922}
+  actor: {fileID: 413057928}
+--- !u!61 &413057929
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 413057922}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.6875}
+    newSize: {x: 0.5, y: 0.6875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.6875}
+  m_EdgeRadius: 0
 --- !u!1 &906713151
 GameObject:
   m_ObjectHideFlags: 0
