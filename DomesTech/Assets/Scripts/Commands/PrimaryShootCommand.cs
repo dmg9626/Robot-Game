@@ -27,13 +27,13 @@ public class PrimaryShootCommand : Command {
 		
 	}
 
+    /// <summary>
+    /// Checks actor's inventory for projectile, then shoots it from actor's position
+    /// </summary>
+    /// <param name="actor">Actor</param>
     private void Shoot(Actor actor)
     {
-        Debug.Log("Executing ShootCommand on " + actor.name);
-
-        // Get direction actor is facing (TODO: consider handling this for actors that don't rotate or don't have an Animator)
-        BaseConstants.Direction direction = (BaseConstants.Direction)actor.GetComponent<Animator>().GetInteger("Direction");
-        Debug.Log("Bullet direction: " + direction.ToString());
+        GameController.LogCommands.Log("Executing ShootCommand on " + actor.name);
 
         // Instantiate bullet (TODO: maybe make this less gross)
         projectile = GameObject.Instantiate(actor.inventory.Find(i => i.GetComponent<Projectile>())).GetComponent<Projectile>();
@@ -42,44 +42,17 @@ public class PrimaryShootCommand : Command {
             // Set bullet on player
             projectile.transform.position = actor.transform.position;
 
-            SetProjectileTrajectory(projectile, direction);
+            // Get direction actor is facing (TODO: consider handling this for actors that don't rotate or don't have an Animator)
+            BaseConstants.Direction direction = actor.GetComponent<MoveComponent>().currentDirection;
+            GameController.LogCommands.Log("Projectile direction: " + direction.ToString());
+
+            // Send projectile in that direction
+            Vector2 trajectory = DirectionHelper.DirectionToVector(direction);
+            projectile.Shoot(trajectory);
         }
         else
         {
-            GameController.LogCommands.LogWarning("Primary Shoot Command (" + actor.name + "): could not find projectile on actor");
+            GameController.LogCommands.LogWarning("Primary Shoot Command: could not find projectile in actor " + actor.name + "'s inventory");
         }
-
-        
     }
-
-    /// <summary>
-    /// Sets trajectory of projectile
-    /// <param name="projectile">Projectile to set trajectory of</param>
-    /// <param name="direction">Direction to send bullet</param>
-    /// </summary>
-
-    private void SetProjectileTrajectory(Projectile projectile, BaseConstants.Direction direction)
-	{
-		// Start with base trajectory (0,0)
-		Vector2 trajectory = new Vector2(0,0);
-
-        switch(direction)
-        {
-            case BaseConstants.Direction.Up:
-                trajectory.y = 1;
-                break;
-            case BaseConstants.Direction.Down:
-                trajectory.y = -1;
-                break;
-            case BaseConstants.Direction.Left:
-                trajectory.x = -1;
-                break;
-            case BaseConstants.Direction.Right:
-                trajectory.x = 1;
-                break;
-        }
-
-		// Set trajectory
-		projectile.SetTrajectory(trajectory);
-	}
 }

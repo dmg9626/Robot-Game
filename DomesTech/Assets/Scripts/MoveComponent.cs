@@ -16,7 +16,7 @@ public class MoveComponent : MonoBehaviour {
 	/// <summary>
 	/// Direction player is currently facing
 	/// </summary>
-	BaseConstants.Direction currentDirection;
+	public BaseConstants.Direction currentDirection;
 
 	void Start()
 	{
@@ -71,7 +71,7 @@ public class MoveComponent : MonoBehaviour {
 
 		// Check if moving diagonally
 		if(horizontal != 0 && vertical != 0){
-			if(IsVertical(currentDirection)) {
+			if(DirectionHelper.IsVertical(currentDirection)) {
 				if(vertical > 0) {
 					direction = BaseConstants.Direction.Up;
 				}
@@ -112,13 +112,5 @@ public class MoveComponent : MonoBehaviour {
         }
 
 		return direction;
-	}
-
-	/// <summary>
-	/// Returns true if direction is vertical
-	/// </summary>
-	/// <param name="direction">Direction</param>
-	private bool IsVertical(BaseConstants.Direction direction){
-		return (direction == BaseConstants.Direction.Up || direction == BaseConstants.Direction.Down);
 	}
 }
