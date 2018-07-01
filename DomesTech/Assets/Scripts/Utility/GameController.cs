@@ -10,9 +10,13 @@ public class GameController : MonoBehaviour {
 
 	void Start()
 	{
+        // Initialize loggers
 		LogPhysics = new LogHelper();
         LogCommands = new LogHelper();
         InitializeLoggers();
+
+        // Player Controller
+        PlayerController = GetComponent<PlayerController>();
 	}
 
 	private void InitializeLoggers()
@@ -30,5 +34,13 @@ public class GameController : MonoBehaviour {
     // Ideally this should allow filtering by Command and Actor executing it
     /// </summary>
     public static LogHelper LogCommands;
+
+    /// <summary>
+    /// Gets the player controller.
+    /// </summary>
+    /// <value>
+    /// The player controller.
+    /// </value>
+    public static PlayerController PlayerController { get; private set; }
 
 }

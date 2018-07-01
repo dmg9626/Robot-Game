@@ -43,4 +43,13 @@ public class PlayerController : MonoBehaviour
         //moveCommand.execute(actor);
         //shootCommand.execute(gameObject);
     }
+
+    /// <summary>
+    /// Sets the actor controlled by player input
+    /// </summary>
+    /// <param name="actor">Actor</param>
+    public void SetActor(Actor actor)
+    {
+        this.actor = actor;
+    }
 }
