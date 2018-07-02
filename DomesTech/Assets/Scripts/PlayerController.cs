@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // Get commands
-        shootCommand = new PrimaryShootCommand();
+        shootCommand = new ShootCommand();
         moveCommand = new MoveCommand();
 
         // TODO: do this more gracefully
