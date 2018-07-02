@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrimaryShootCommand : Command {
+public class ShootCommand : Command {
 
-	public PrimaryShootCommand() {
+	public ShootCommand() {
         type = Type.ATTACK;
     }
 
@@ -48,7 +48,7 @@ public class PrimaryShootCommand : Command {
 
             // Send projectile in that direction
             Vector2 trajectory = DirectionHelper.DirectionToVector(direction);
-            projectile.Shoot(trajectory);
+            projectile.Shoot(trajectory, actor);
         }
         else
         {
