@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,10 +19,18 @@ public class Actor : MonoBehaviour {
     /// </summary>
     public List<GameObject> inventory;
 
+    
+    // TODO: use a dictionary to relate commands and actionQueue
+
     /// <summary>
-    /// Represents order in which player actions will occur
+    /// Represents available commands and order in which they execute
     /// </summary>
     public List<Command.Type> actionQueue;
+
+    /// <summary>
+    /// Collection of commands to execute
+    /// </summary>
+    public List<Command> commands;
 
     /// <summary>
     /// Text label displayed below actor
@@ -42,6 +51,26 @@ public class Actor : MonoBehaviour {
         // Initialize text label below actor
         textMesh = transform.GetComponentInChildren<TextMesh>();
         UpdateLabel();
+
+        // Initialize each command in commands list
+        InitializeCommands();
+    }
+
+    private void InitializeCommands()
+    {
+        for(int i = 0; i < commands.Count; i++) {
+            GameController.LogCommands.Log(name + " | Initializing command: " + commands[i]);
+            switch(commands[i].type) {
+                case Command.Type.ATTACK:
+                    commands[i] = new ShootCommand();
+                    break;
+                case Command.Type.MOVEMENT:
+                    commands[i] = new MoveCommand();
+                    break;
+            }
+
+            GameController.LogCommands.Log(name + " | Initialized " + commands[i].type + " command");
+        }
     }
 
     private void Update()

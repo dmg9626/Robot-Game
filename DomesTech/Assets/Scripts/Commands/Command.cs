@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command {
-
+[System.Serializable]
+public class Command 
+{
 	public Command() {}
 
     public enum Type

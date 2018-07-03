@@ -11,35 +11,28 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public Actor actor;
 
-    /// <summary>
-    /// Shoots a projectile in direction player is facing
-    /// </summary>
-    protected Command shootCommand;
-
-    /// <summary>
-    /// Moves/animates player
-    /// </summary>
-    protected Command moveCommand;
-
-    /// <summary>
-    /// Collection of commands to execute
-    /// </summary>
-    protected List<Command> commands;
+    /*
+     * The focus of this redesign is to move commands entirely from the PlayerController to the Actor
+     * That way different actors can have different sets of commands
+     * Switching between actors should occur smoothly with no side effects
+     */
 
     void Start()
     {
         // Get commands
-        shootCommand = new ShootCommand();
-        moveCommand = new MoveCommand();
+        //shootCommand = new ShootCommand();
+        //moveCommand = new MoveCommand();
 
         // TODO: do this more gracefully
-        commands = new List<Command> { shootCommand, moveCommand };
+        //commands = new List<Command> { new ShootCommand(), new MoveCommand() };
 
         // Set actor to player if null
-        if(actor == null)
-        {
+        if(actor == null) {
             SetActor(FindPlayer());
         }
+
+        // Initialize commands
+        //actor.commands = new List<Command> { new ShootCommand(), new MoveCommand() };
     }
 
     /// <summary>
@@ -53,9 +46,8 @@ public class PlayerController : MonoBehaviour
     void Update () 
     {
         // Iterate through each commandType in action queue and execute corresponding command
-        foreach(Command.Type commandType in actor.actionQueue)
-        {
-            commands.Find(i => i.type == commandType).execute(actor);
+        foreach(Command.Type commandType in actor.actionQueue) {
+            actor.commands.Find(i => i.type == commandType).execute(actor);
         }
         //moveCommand.execute(actor);
         //shootCommand.execute(gameObject);
