@@ -23,40 +23,42 @@ public class MoveComponent : MonoBehaviour {
 		animator = GetComponent<Animator>();
 	}
 
-	/// <summary>
-	/// Moves/animates actor based on provided horizontal/vertical input from MoveCommand
-	/// </summary>
-	/// <param name="horizontal">Horizontal input</param>
-	/// <param name="vertical">Vertical input</param>
-	public void ManageMovement(float horizontal,float vertical) 
+    /// <summary>
+    /// Moves/animates actor based on provided horizontal/vertical input from MoveCommand
+    /// </summary>
+    /// <param name="input">Player input</param>
+    public void ManageMovement(Vector2 input) 
     {
         // Move actor in direction of input
-        Vector2 movement = new Vector2 (horizontal, vertical) * moveSpeed;
+        Vector2 movement = input * moveSpeed;
         gameObject.GetComponent<Rigidbody2D>().velocity = movement;
 
 		// Animate walking if receiving input
-        if (horizontal != 0f || vertical != 0f) {
+        if (input.x != 0f || input.y != 0f) {
             animator.SetBool("Moving", true); 
-            AnimateWalk(horizontal, vertical);
+            AnimateWalk(input);
         } 
         else {
             animator.SetBool("Moving", false);
         }
     }
 
-	/// <summary>
-	/// Animates movement based on horizontal/vertical input
-	/// </summary>
-	/// <param name="horizontal">Horizontal input</param>
-	/// <param name="vertical">Vertical input</param>
-    private void AnimateWalk(float horizontal,float vertical) 
+    /// <summary>
+    /// Animates movement based on horizontal/vertical input
+    /// </summary>
+    /// <param name="input">Player input</param>
+    private void AnimateWalk(Vector2 input) 
     {
 		// Get current direction
         currentDirection = (BaseConstants.Direction)animator.GetInteger("Direction");
 
-		// Calculate and set new direction
-		int newDirection = (int)CalculateDirection(horizontal, vertical);
-		animator.SetInteger("Direction", newDirection);
+        // Calculate and set new direction
+        BaseConstants.Direction newDirection = FaceDirection(input);
+        animator.SetInteger("Direction", (int)newDirection);
+
+        if (currentDirection != newDirection) {
+            GameController.LogCommands.Log("Facing direction: " + newDirection);
+        }
     }
 
 	/// <summary>
@@ -65,52 +67,41 @@ public class MoveComponent : MonoBehaviour {
 	/// <param name="horizontal">Horizontal input</param>
 	/// <param name="vertical">Vertical input</param>
 	/// <returns>Direction to face</returns>
-	private BaseConstants.Direction CalculateDirection(float horizontal, float vertical)
+	private BaseConstants.Direction FaceDirection(Vector2 input)
 	{
-		BaseConstants.Direction direction = currentDirection;
-
 		// Check if moving diagonally
-		if(horizontal != 0 && vertical != 0){
+		if(input.x != 0 && input.y != 0){
 			if(DirectionHelper.IsVertical(currentDirection)) {
-				if(vertical > 0) {
-					direction = BaseConstants.Direction.Up;
-				}
-				else {
-					direction = BaseConstants.Direction.Down;
-				}
-			}
+                return ParseInput(input.y, false);
+            }
 			else {
-				if(horizontal > 0) {
-					direction = BaseConstants.Direction.Right;
-				}
-				else {
-					direction = BaseConstants.Direction.Left;
-				}
-			}
+                return ParseInput(input.x, true);
+            }
 		}
 
 		// Otherwise face in direction of raw input
-		else if(horizontal != 0) {
-			if(horizontal > 0) {
-				direction = BaseConstants.Direction.Right;
-			}
-			else {
-				direction = BaseConstants.Direction.Left;
-			}
+		else if(input.x != 0) {
+            return ParseInput(input.x, true);
 		}
-		else if(vertical != 0) {
-			if(vertical > 0) {
-				direction = BaseConstants.Direction.Up;
-			}
-			else {
-				direction = BaseConstants.Direction.Down;
-			}
+		else if(input.y != 0) {
+            return ParseInput(input.y, false);
 		}
 
-        if(currentDirection != direction) {
-            GameController.LogCommands.Log("Facing direction: " + direction);
-        }
-
-		return direction;
+		return currentDirection;
 	}
+
+    /// <summary>
+    /// Parses a float representing player input (horizontal or vertical) and returns corresponding direction
+    /// </summary>
+    /// <param name="input">Player input on horizontal/vertical axis</param>
+    /// <param name="horizontal">True if input is horizontal, false if vertical</param>
+    private BaseConstants.Direction ParseInput(float input, bool horizontal)
+    {
+        if (input > 0) {
+            return horizontal ? BaseConstants.Direction.Right : BaseConstants.Direction.Up;
+        }
+        else {
+            return horizontal ? BaseConstants.Direction.Left : BaseConstants.Direction.Down;
+        }
+    }
 }
