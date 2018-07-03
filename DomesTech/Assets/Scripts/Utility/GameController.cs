@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour 
-{
+public class GameController : MonoBehaviour {
 	[Header("Loggers")]
 	public bool logPhysics;
     
     public bool logCommand;
 
-	void Awake()
+	void Start()
 	{
         // Initialize loggers
 		LogPhysics = new LogHelper();
