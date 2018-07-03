@@ -9,8 +9,10 @@ public class MoveCommand : Command {
 
 		// Get player input
         // TODO: design this command to handle enemy AI movement as well
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
+        //float vertical = Input.GetAxis("Vertical");
+        //float horizontal = Input.GetAxis("Horizontal");
+
+        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         MoveComponent moveComponent = actor.GetComponent<MoveComponent>();
 
@@ -18,7 +20,7 @@ public class MoveCommand : Command {
         if(moveComponent != null)
         {
             // Move/animate player
-            moveComponent.ManageMovement(horizontal, vertical);
+            moveComponent.ManageMovement(input);
         }
         else
         {
