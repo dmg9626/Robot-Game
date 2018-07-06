@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Command : MonoBehaviour {
+public class Command {
 
 	public Command() {}
 

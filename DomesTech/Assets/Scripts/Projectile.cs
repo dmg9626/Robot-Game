@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-	public float lifeSpan;
-	private float time = 0;
-	public float speed;
-	public Projectile() {
-		
-	}
 
-	public void SetTrajectory(Vector2 trajectory) {
-		trajectory.x *= speed;
-		trajectory.y *= speed;
-		GetComponent<Rigidbody2D>().velocity = trajectory;
-		Debug.Log("Trajectory: " + trajectory);
-	}
+    /// <summary>
+    /// Time to wait for collision before disappearing
+    /// </summary>
+    public float lifeSpan;
+
+    /// <summary>
+    /// Time counter
+    /// </summary>
+    private float time = 0;
+
+    /// <summary>
+    /// Projectile speed
+    /// </summary>
+    public float speed;
+
+    /// <summary>
+    /// Damage dealt
+    /// </summary>
+    public float damage;
+
+    /// <summary>
+    /// Actor that shot the projectile
+    /// </summary>
+    public Actor actor;
 	
 	void Update () {
 		if(time > lifeSpan) {
@@ -25,4 +37,27 @@ public class Projectile : MonoBehaviour {
 			time += Time.deltaTime;
 		}
 	}
+
+    /// <summary>
+    /// Shoots projectile in given direction
+    /// </summary>
+    /// <param name="vector">Vector</param>
+    /// <param name="actor">Actor that shot projectile</param>
+    public void Shoot(Vector2 vector, Actor actor)
+    {
+        // Set velocity
+        GetComponent<Rigidbody2D>().velocity = vector * speed;
+        GameController.LogPhysics.Log("Trajectory: " + vector);
+
+        // Set rotation (flip 90 degrees if needed)
+        if (!DirectionHelper.IsVertical(DirectionHelper.VectorToDirection(vector)))
+        {
+            Quaternion rotation = transform.rotation;
+            rotation.eulerAngles = new Vector3(0, 0, 90F);
+            transform.rotation = rotation;
+        }
+
+        // Save reference to actor so his bullets don't damage him
+        this.actor = actor;
+    }
 }
