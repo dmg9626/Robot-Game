@@ -21,12 +21,6 @@ public class Actor : MonoBehaviour {
     /// <summary>
     /// List of commands available to the actor
     /// </summary>
-<<<<<<< HEAD
-    protected List<Command.Type> actionList = new List<Command.Type>() {
-		Command.Type.MOVEMENT,
-		Command.Type.ATTACK
-	};
-=======
     public List<Command.Type> actionQueue;
 
     /// <summary>
@@ -88,5 +82,4 @@ public class Actor : MonoBehaviour {
     {
         textMesh.text = name + "\nHealth: " + health;
     }
->>>>>>> de865690d1b48536b2cad6743fcb78a6c4662192
 }
