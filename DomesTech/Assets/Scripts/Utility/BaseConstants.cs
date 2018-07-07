@@ -9,6 +9,9 @@ A static class used to store information/class definitions that should be global
  */
 
 public static class BaseConstants : object {
+    /// <summary>
+    /// 4-Way Direction
+    /// </summary>
 	public enum Direction {
         Up = 1,
         Right,

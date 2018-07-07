@@ -64,6 +64,11 @@ public class ShootCommand : Command {
         }
     }
 
+    /// <summary>
+    /// Searches actor's inventory for GameObject with Projectile component
+    /// </summary>
+    /// <param name="actor">Actor</param>
+    /// <returns>Returns projectile if found, null otherwise</returns>
     private Projectile GetProjectile(Actor actor)
     {
         // Instantiate bullet (TODO: investigate why this causes a null reference)
