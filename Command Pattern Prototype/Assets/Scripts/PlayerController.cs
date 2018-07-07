@@ -83,4 +83,55 @@ public class PlayerController : MonoBehaviour
         this.controlledActor = actor;
         Debug.Log("Changed actor to " + actor.name);
     }
+   
+    /// <summary>
+    /// Destroys the actor gameobject and spawns in a new one to replace it
+    /// </summary>
+    /// <param name="actor">Actor to kill</param>
+    public void KillActor(Actor actor)
+    {
+        Debug.Log(actor.name + " died");
+
+        // Spawn a clone of the actor before destroying (for demo purposes only)
+        CloneActor(actor);
+
+        // Destroy the old one
+        Destroy(actor.gameObject);
+
+        // Find another actor in scene to control if you killed yourself (for demo purposes only)
+        // TODO: remove/change this for actual game; player death should mean game over
+        if (GameController.PlayerController.controlledActor == actor)
+        {
+            Actor newControlActor = FindObjectOfType<Actor>();
+            GameController.PlayerController.SetActor(newControlActor);
+        }
+    }
+
+	/// <summary>
+    /// Spawns clone of provided actor
+    /// </summary>
+    /// <param name="actor">Actor</param>
+    private void CloneActor(Actor actor)
+    {
+        // Reference to prefab
+        UnityEngine.Object actorPrefab;
+
+        // Select between Player and Actor prefabs
+        if (actor.isPlayer)
+        {
+            actorPrefab = Resources.Load("Prefabs/Player");
+        }
+        else
+        {
+            actorPrefab = Resources.Load("Prefabs/Actor");
+        }
+
+        // Instantiate actor from prefab
+        Actor newActor = Instantiate(actorPrefab as GameObject).GetComponent<Actor>();
+
+        // Move it over a bit to distinguish it from dead actor
+        Vector2 offset = new Vector2(UnityEngine.Random.Range(-1F, 1F), UnityEngine.Random.Range(-1F, 1F));
+        newActor.transform.position += (Vector3)offset;
+    }
+
 }

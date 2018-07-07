@@ -58,18 +58,9 @@ public class Actor : MonoBehaviour {
 
     private void Update()
     {
-        // Disable self when health reaches 0
+        // Kill self when health reaches 0
         if(health <= 0) {
-            Debug.Log(name + " died");
-            gameObject.SetActive(false);
-
-            // Find another actor in scene to control if you died (for demo purposes only)
-            // TODO: remove/change this for actual game; player death should mean game over
-            if(GameController.PlayerController.controlledActor == this) {
-                Actor actor = GameObject.FindObjectOfType<Actor>();
-                GameController.PlayerController.SetActor(actor);
-            }
-            
+            GameController.PlayerController.KillActor(this);
         }
     }
 
