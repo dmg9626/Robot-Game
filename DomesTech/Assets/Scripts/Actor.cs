@@ -36,7 +36,7 @@ public class Actor : MonoBehaviour {
     public List<Command.Type> actionQueue;
 
     /// <summary>
-    /// Text label displayed below actor
+    /// Text label displayed below actor (TODO: remove this from future projects)
     /// </summary>
     protected TextMesh textMesh;
 
@@ -75,7 +75,7 @@ public class Actor : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit by " + collision.gameObject.name);
+        Debug.Log(name + " was hit by " + collision.gameObject.name);
 
         // Check for projectile
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
