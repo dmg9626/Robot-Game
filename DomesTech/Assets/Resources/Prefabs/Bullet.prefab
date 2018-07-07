@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeSpan: 2
-  speed: 5
+  speed: 10
   damage: 20
   actor: {fileID: 0}

@@ -44,6 +44,10 @@ public class MoveComponent : MonoBehaviour {
         if (input.x != 0f || input.y != 0f) {
             animator.SetBool("Moving", true); 
             AnimateWalk(input);
+
+            // TODO: remove this from future projects
+            // Change controls helper text after moving
+            GameObject.Find("Controls Tip").GetComponent<TextMesh>().text = "Press the space bar to shoot";
         } 
         else {
             animator.SetBool("Moving", false);
