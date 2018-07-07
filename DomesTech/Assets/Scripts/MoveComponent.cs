@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+Attach this to an Actor to allow movement via execution of MoveCommand
+
+ */
+
 public class MoveComponent : MonoBehaviour {
+
 	/// <summary>
 	/// Movement speed
 	/// </summary>
-	public float moveSpeed;
+	public float moveSpeed = 5;
 
 	/// <summary>
 	/// Animator
@@ -16,7 +23,7 @@ public class MoveComponent : MonoBehaviour {
 	/// <summary>
 	/// Direction player is currently facing
 	/// </summary>
-	public BaseConstants.Direction currentDirection;
+	public BaseConstants.Direction currentDirection; // TODO: public get; protected set;
 
 	void Start()
 	{
@@ -55,10 +62,6 @@ public class MoveComponent : MonoBehaviour {
         // Calculate and set new direction
         BaseConstants.Direction newDirection = FaceDirection(input);
         animator.SetInteger("Direction", (int)newDirection);
-
-        if (currentDirection != newDirection) {
-            GameController.LogCommands.Log("Facing direction: " + newDirection);
-        }
     }
 
 	/// <summary>
@@ -69,7 +72,7 @@ public class MoveComponent : MonoBehaviour {
 	/// <returns>Direction to face</returns>
 	private BaseConstants.Direction FaceDirection(Vector2 input)
 	{
-		// Check if moving diagonally
+		// If moving diagonally, continue facing along axis of currentDirection
 		if(input.x != 0 && input.y != 0){
 			if(DirectionHelper.IsVertical(currentDirection)) {
                 return ParseInput(input.y, false);
@@ -91,10 +94,10 @@ public class MoveComponent : MonoBehaviour {
 	}
 
     /// <summary>
-    /// Parses a float representing player input (horizontal or vertical) and returns corresponding direction
+    /// Parses a float representing player input (horizontal or vertical axis) and returns corresponding direction
     /// </summary>
     /// <param name="input">Player input on horizontal/vertical axis</param>
-    /// <param name="horizontal">True if input is horizontal, false if vertical</param>
+    /// <param name="horizontal">True if input direction is horizontal, false if vertical</param>
     private BaseConstants.Direction ParseInput(float input, bool horizontal)
     {
         if (input > 0) {

@@ -3,6 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+Checks player inventory for a projectile, then shoots it in direction player is facing.
+
+Like the MoveCommand, this command only functions based on player input; a redesign is required to get this
+working for NPC behavior.
+
+TODO: handle no projectile in inventory
+
+ */
+
 public class ShootCommand : Command {
 
 	public ShootCommand() {

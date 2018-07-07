@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+Add a GameObject with a Projectile component to the Inventory of an Actor to allow him to shoot it.
+
+Ideally a Projectile would fire through a Weapon (maybe even a Clip if you really wanna over-engineer it),
+but for the purposes of this demo just throwing a Projectile is fine.
+
+ */
+
 public class Projectile : MonoBehaviour {
 
     /// <summary>

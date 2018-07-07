@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+This command takes directional input and moves/animates the actor accordingly. It requires the actor to
+have a MoveComponent and an Animator/AnimationController configured for movement.
+
+At the moment it only works for player input - some reworking is necessary for this command to be used for
+handling movement of NPCs
+
+ */
+
 public class MoveCommand : Command {
 	public MoveCommand() { type = Type.MOVEMENT; }
 
