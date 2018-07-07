@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+A class for helper functions commonly used when dealing with Directions.
+
+ */
 public static class DirectionHelper
 {
 

@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+A static class used to store information/class definitions that should be globally accessible.
+
+ */
+
 public static class BaseConstants : object {
 	public enum Direction {
         Up = 1,

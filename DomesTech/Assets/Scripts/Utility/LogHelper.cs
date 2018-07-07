@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+Used for logging information to the console
+
+A LogHelper should be created for a number of logging purposes (ex. Physics, Environment, Actor, Command, etc.)
+so that they can be enabled/disabled; this allows a developer to filter out unrelated logs while debugging.
+
+ */
+
 public class LogHelper {
 
 	/// <summary>
