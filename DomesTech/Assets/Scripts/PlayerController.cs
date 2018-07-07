@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Actor player is currently controlling
     /// </summary>
-    public Actor actor;
+    public Actor controlledActor;
 
     /// <summary>
     /// Collection of commands to execute
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         commands = new List<Command> { shootCommand, moveCommand };
 
         // Set actor to player if null
-        if(actor == null)
+        if(controlledActor == null)
         {
             SetActor(FindPlayer());
         }
@@ -64,9 +64,9 @@ public class PlayerController : MonoBehaviour
     void Update () 
     {
         // Iterate through each commandType in action queue and execute corresponding command
-        foreach(Command.Type commandType in actor.actionQueue)
+        foreach(Command.Type commandType in controlledActor.actionQueue)
         {
-            commands.Find(i => i.type == commandType).execute(actor);
+            commands.Find(i => i.type == commandType).execute(controlledActor);
         }
 
         // No longer have to execute each command manually
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="actor">Actor</param>
     public void SetActor(Actor actor)
     {
-        this.actor = actor;
+        this.controlledActor = actor;
         Debug.Log("Changed actor to " + actor.name);
     }
 }
