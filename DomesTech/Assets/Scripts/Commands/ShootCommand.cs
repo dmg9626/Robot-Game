@@ -29,13 +29,11 @@ public class ShootCommand : Command {
     /// Executes Weapon's PrimaryAttack() method
     /// <param name="actor">Actor to execute command on</param>
     /// </summary>
-    public override void execute(Actor actor) {
-
-        if(Input.GetButtonDown("Shoot"))
-        {
+    public override void execute(Actor actor) 
+    {
+        if(Input.GetButtonDown("Shoot")) {
             Shoot(actor);
-        }
-		
+        }	
 	}
 
     /// <summary>
@@ -46,10 +44,10 @@ public class ShootCommand : Command {
     {
         GameController.LogCommands.Log("Executing ShootCommand on " + actor.name);
 
-        // Instantiate bullet (TODO: maybe make this less gross)
-        projectile = GameObject.Instantiate(actor.inventory.Find(i => i.GetComponent<Projectile>())).GetComponent<Projectile>();
-        if(projectile != null)
-        {
+        // Retrieve projectile from actor inventory
+        projectile = GetProjectile(actor);
+
+        if(projectile != null) {
             // Set bullet on player
             projectile.transform.position = actor.transform.position;
 
@@ -61,9 +59,20 @@ public class ShootCommand : Command {
             Vector2 trajectory = DirectionHelper.DirectionToVector(direction);
             projectile.Shoot(trajectory, actor);
         }
-        else
-        {
+        else {
             GameController.LogCommands.LogWarning("Primary Shoot Command: could not find projectile in actor " + actor.name + "'s inventory");
+        }
+    }
+
+    private Projectile GetProjectile(Actor actor)
+    {
+        // Instantiate bullet (TODO: investigate why this causes a null reference)
+        GameObject projectileObj = actor.inventory.Find(i => i.GetComponent<Projectile>() != null);
+        if(projectileObj != null) {
+            return GameObject.Instantiate(projectileObj).GetComponent<Projectile>();
+        }
+        else {
+            return null;
         }
     }
 }
