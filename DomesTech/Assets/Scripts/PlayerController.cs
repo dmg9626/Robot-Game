@@ -31,27 +31,18 @@ public class PlayerController : MonoBehaviour
     public Actor actor;
 
     /// <summary>
-    /// Shoots a projectile in direction player is facing
-    /// </summary>
-    protected Command shootCommand;
-
-    /// <summary>
-    /// Moves/animates player
-    /// </summary>
-    protected Command moveCommand;
-
-    /// <summary>
     /// Collection of commands to execute
     /// </summary>
     protected List<Command> commands;
 
     void Start()
     {
-        // Get commands
-        shootCommand = new ShootCommand();
-        moveCommand = new MoveCommand();
+        // Instantiate commands
+        Command shootCommand = new ShootCommand();
+        Command moveCommand = new MoveCommand();
 
-        // TODO: do this more gracefully, allow tweaking in GUI
+        // TODO: do this more dynamically
+        // TODO: pull commands from Actor, rather than operating off same set of commands for each actor
         commands = new List<Command> { shootCommand, moveCommand };
 
         // Set actor to player if null
@@ -77,6 +68,8 @@ public class PlayerController : MonoBehaviour
         {
             commands.Find(i => i.type == commandType).execute(actor);
         }
+
+        // No longer have to execute each command manually
         //moveCommand.execute(actor);
         //shootCommand.execute(gameObject);
     }

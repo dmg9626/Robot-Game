@@ -51,7 +51,7 @@ public class ShootCommand : Command {
             // Set bullet on player
             projectile.transform.position = actor.transform.position;
 
-            // Get direction actor is facing (TODO: consider handling this for actors that don't rotate or don't have an Animator)
+            // Get direction actor is facing (TODO: consider handling this for actors that don't rotate)
             BaseConstants.Direction direction = actor.GetComponent<MoveComponent>().currentDirection;
             GameController.LogCommands.Log("Projectile direction: " + direction.ToString());
 
