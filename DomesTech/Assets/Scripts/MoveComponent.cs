@@ -23,7 +23,7 @@ public class MoveComponent : MonoBehaviour {
 	/// <summary>
 	/// Direction player is currently facing
 	/// </summary>
-	public BaseConstants.Direction currentDirection; // TODO: public get; protected set;
+	public BaseConstants.Direction currentDirection { get; protected set;}
 
 	void Start()
 	{
