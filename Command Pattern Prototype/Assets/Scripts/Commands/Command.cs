@@ -33,9 +33,9 @@ That way Commands can be handled the same way for the player and NPCs.
 
  */
 
-public class Command {
+public class Command : MonoBehaviour {
 
-	public Command() {}
+	// public Command() {}
 
     public enum Type
     {

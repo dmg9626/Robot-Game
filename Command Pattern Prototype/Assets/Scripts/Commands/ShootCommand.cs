@@ -16,10 +16,6 @@ TODO: handle no projectile in inventory
 
 public class ShootCommand : Command {
 
-	public ShootCommand() {
-        type = Type.ATTACK;
-    }
-
     /// <summary>
     /// Bullet to be shot
     /// </summary>

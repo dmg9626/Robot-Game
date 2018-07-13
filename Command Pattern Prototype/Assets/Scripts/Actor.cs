@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +38,12 @@ public class Actor : MonoBehaviour {
 
     /// <summary>
     /// Text label displayed below actor (TODO: remove this from future projects)
+    /// Collection of commands to execute
+    /// </summary>
+    public List<Command> commands;
+
+    /// <summary>
+    /// Text label displayed below actor
     /// </summary>
     protected TextMesh textMesh;
 
