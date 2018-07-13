@@ -32,30 +32,42 @@ public class GameController : MonoBehaviour {
 
 	void Start()
 	{
-        // Initialize loggers
-		LogPhysics = new LogHelper();
-        LogCommands = new LogHelper();
+        // Add LogHelper mapping here for each logger
+        loggers = new Dictionary<LogHelper, bool>() {
+            { LogPhysics, logPhysics },
+            { LogCommands, logCommand }
+        };
+
+        // Initialize each logger
         InitializeLoggers();
 
         // Player Controller
         PlayerController = GetComponent<PlayerController>();
 	}
 
+    /// <summary>
+    /// Enables/disables logging foe each LogHelper, based on the mapped boolean value
+    /// (ex { LogPhysics -> logPhysics })
+    /// </summary>
 	private void InitializeLoggers()
 	{
-		LogPhysics.SetLogging(logPhysics);
-        LogCommands.SetLogging(logCommand);
+        foreach(LogHelper logHelper in loggers.Keys) {
+            logHelper.SetLogging(loggers[logHelper]);
+        }
 	}
+
+    protected Dictionary<LogHelper, bool> loggers;
+
 	/// <summary>
 	/// Physics logger
 	/// </summary>
-	public static LogHelper LogPhysics;
+	public static LogHelper LogPhysics = new LogHelper();
 
     /// <summary>
     /// Command logger
     // Ideally this should allow filtering by Command and Actor executing it
     /// </summary>
-    public static LogHelper LogCommands;
+    public static LogHelper LogCommands = new LogHelper();
 
     /// <summary>
     /// Player controller
