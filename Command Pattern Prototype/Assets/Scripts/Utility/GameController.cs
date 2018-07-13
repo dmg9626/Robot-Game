@@ -56,6 +56,30 @@ public class GameController : MonoBehaviour {
         }
 	}
 
+    public static void Log(string message, LogHelper logHelper = null)
+    {
+        // Check if LogHelper specified
+        if(logHelper != null) {
+            logHelper.Log(message);
+        }
+        // Otherwise just log without filtering
+        else {
+            Debug.Log(message);
+        }
+    }
+
+    public static void LogWarning(string message, LogHelper logHelper = null)
+    {
+        // Check if LogHelper specified
+        if(logHelper != null) {
+            logHelper.LogWarning(message);
+        }
+        // Otherwise just log without filtering
+        else {
+            Debug.LogWarning(message);
+        }
+    }
+
     protected Dictionary<LogHelper, bool> loggers;
 
 	/// <summary>
