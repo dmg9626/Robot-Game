@@ -56,6 +56,11 @@ public class GameController : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Log a message to the console (with option to filter through specified GameController.LogHelper)
+    /// </summary>
+    /// <param name="message">Message to log</param>
+    /// <param name="logHelper">LogHelper to use (must be referenced via GameController)</param>
     public static void Log(string message, LogHelper logHelper = null)
     {
         // Check if LogHelper specified
@@ -68,6 +73,11 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Log a warning to the console (with option to filter through specified GameController.LogHelper)
+    /// </summary>
+    /// <param name="message">Message to log</param>
+    /// <param name="logHelper">LogHelper to use (must be referenced via GameController)</param>
     public static void LogWarning(string message, LogHelper logHelper = null)
     {
         // Check if LogHelper specified
@@ -87,9 +97,9 @@ public class GameController : MonoBehaviour {
 	/// </summary>
 	public static LogHelper LogPhysics = new LogHelper();
 
+    // Ideally this should allow filtering by Command and Actor executing it
     /// <summary>
     /// Command logger
-    // Ideally this should allow filtering by Command and Actor executing it
     /// </summary>
     public static LogHelper LogCommands = new LogHelper();
 
