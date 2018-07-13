@@ -30,20 +30,15 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public Actor controlledActor;
 
-    /// <summary>
-    /// Collection of commands to execute
-    /// </summary>
-    protected List<Command> commands;
-
     void Start()
     {
         // Instantiate commands
-        Command shootCommand = new ShootCommand();
-        Command moveCommand = new MoveCommand();
+        // Command shootCommand = new ShootCommand();
+        // Command moveCommand = new MoveCommand();
 
         // TODO: do this more dynamically
         // TODO: pull commands from Actor, rather than operating off same set of commands for each actor
-        commands = new List<Command> { shootCommand, moveCommand };
+        // commands = new List<Command> { shootCommand, moveCommand };
 
         // Set actor to player if null
         if(controlledActor == null)
@@ -66,7 +61,10 @@ public class PlayerController : MonoBehaviour
         // Iterate through each commandType in action queue and execute corresponding command
         foreach(Command.Type commandType in controlledActor.actionQueue)
         {
-            commands.Find(i => i.type == commandType).execute(controlledActor);
+            List<Command> commands = controlledActor.commands.FindAll(i => i.type == commandType);
+            foreach(Command command in commands) {
+                command.execute(controlledActor);
+            }
         }
 
         // No longer have to execute each command manually
