@@ -73,19 +73,17 @@ public class Actor : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(name + " was hit by " + collision.gameObject.name);
+        GameController.Log(name + " was hit by " + collision.gameObject.name);
 
         // Check for projectile
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
         if(projectile != null) {
-            Debug.Log("Projectile: " + projectile.name);
 
             // Decrement health if projectile shot by different actor
             if(projectile.actor != this) {
                 health -= projectile.damage;
 
                 GameObject.Destroy(projectile.gameObject);
-                Debug.Log("Health: " + health);
 
                 // Update label with reduced health
                 UpdateLabel();

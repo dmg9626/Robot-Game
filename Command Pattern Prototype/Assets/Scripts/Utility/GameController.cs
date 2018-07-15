@@ -32,30 +32,76 @@ public class GameController : MonoBehaviour {
 
 	void Start()
 	{
-        // Initialize loggers
-		LogPhysics = new LogHelper();
-        LogCommands = new LogHelper();
+        // Add LogHelper mapping here for each logger
+        loggers = new Dictionary<LogHelper, bool>() {
+            { LogPhysics, logPhysics },
+            { LogCommands, logCommand }
+        };
+
+        // Initialize each logger
         InitializeLoggers();
 
         // Player Controller
         PlayerController = GetComponent<PlayerController>();
 	}
 
+    /// <summary>
+    /// Enables/disables logging foe each LogHelper, based on the mapped boolean value
+    /// (ex { LogPhysics -> logPhysics })
+    /// </summary>
 	private void InitializeLoggers()
 	{
-		LogPhysics.SetLogging(logPhysics);
-        LogCommands.SetLogging(logCommand);
+        foreach(LogHelper logHelper in loggers.Keys) {
+            logHelper.SetLogging(loggers[logHelper]);
+        }
 	}
+
+    /// <summary>
+    /// Log a message to the console (with option to filter through specified GameController.LogHelper)
+    /// </summary>
+    /// <param name="message">Message to log</param>
+    /// <param name="logHelper">LogHelper to use (must be referenced via GameController)</param>
+    public static void Log(string message, LogHelper logHelper = null)
+    {
+        // Check if LogHelper specified
+        if(logHelper != null) {
+            logHelper.Log(message);
+        }
+        // Otherwise just log without filtering
+        else {
+            Debug.Log(message);
+        }
+    }
+
+    /// <summary>
+    /// Log a warning to the console (with option to filter through specified GameController.LogHelper)
+    /// </summary>
+    /// <param name="message">Message to log</param>
+    /// <param name="logHelper">LogHelper to use (must be referenced via GameController)</param>
+    public static void LogWarning(string message, LogHelper logHelper = null)
+    {
+        // Check if LogHelper specified
+        if(logHelper != null) {
+            logHelper.LogWarning(message);
+        }
+        // Otherwise just log without filtering
+        else {
+            Debug.LogWarning(message);
+        }
+    }
+
+    protected Dictionary<LogHelper, bool> loggers;
+
 	/// <summary>
 	/// Physics logger
 	/// </summary>
-	public static LogHelper LogPhysics;
+	public static LogHelper LogPhysics = new LogHelper();
 
+    // Ideally this should allow filtering by Command and Actor executing it
     /// <summary>
     /// Command logger
-    // Ideally this should allow filtering by Command and Actor executing it
     /// </summary>
-    public static LogHelper LogCommands;
+    public static LogHelper LogCommands = new LogHelper();
 
     /// <summary>
     /// Player controller
