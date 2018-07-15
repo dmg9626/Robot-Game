@@ -32,14 +32,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // Instantiate commands
-        // Command shootCommand = new ShootCommand();
-        // Command moveCommand = new MoveCommand();
-
-        // TODO: do this more dynamically
-        // TODO: pull commands from Actor, rather than operating off same set of commands for each actor
-        // commands = new List<Command> { shootCommand, moveCommand };
-
         // Set actor to player if null
         if(controlledActor == null)
         {
@@ -53,7 +45,7 @@ public class PlayerController : MonoBehaviour
     public Actor FindPlayer()
     {
         // TODO: check if player actor not found
-        return GameObject.FindObjectsOfType<Actor>().Where(i => i.isPlayer).First() as Actor;
+        return FindObjectsOfType<Actor>().Where(i => i.isPlayer).First() as Actor;
     }
 
     void Update () 
@@ -79,7 +71,7 @@ public class PlayerController : MonoBehaviour
     public void SetActor(Actor actor)
     {
         this.controlledActor = actor;
-        Debug.Log("Changed actor to " + actor.name);
+        GameController.Log("Changed actor to " + actor.name);
     }
    
     /// <summary>
@@ -88,7 +80,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="actor">Actor to kill</param>
     public void KillActor(Actor actor)
     {
-        Debug.Log(actor.name + " died");
+        GameController.Log(actor.name + " died");
 
         // Spawn a clone of the actor before destroying (for demo purposes only)
         CloneActor(actor);

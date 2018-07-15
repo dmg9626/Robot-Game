@@ -36,7 +36,7 @@ public class ShootCommand : Command {
     /// <param name="actor">Actor</param>
     private void Shoot(Actor actor)
     {
-        GameController.LogCommands.Log("Executing ShootCommand on " + actor.name);
+        GameController.Log("Executing ShootCommand on " + actor.name, GameController.LogCommands);
 
         // Retrieve projectile from actor inventory
         projectile = GetProjectile(actor);
@@ -47,14 +47,14 @@ public class ShootCommand : Command {
 
             // Get direction actor is facing (TODO: consider handling this for actors that don't rotate)
             BaseConstants.Direction direction = actor.GetComponent<MoveComponent>().currentDirection;
-            GameController.LogCommands.Log("Projectile direction: " + direction.ToString());
+            GameController.Log("Projectile direction: " + direction.ToString(), GameController.LogCommands);
 
             // Send projectile in that direction
             Vector2 trajectory = DirectionHelper.DirectionToVector(direction);
             projectile.Shoot(trajectory, actor);
         }
         else {
-            GameController.LogCommands.LogWarning("Primary Shoot Command: could not find projectile in actor " + actor.name + "'s inventory");
+            GameController.LogWarning("Primary Shoot Command: could not find projectile in actor " + actor.name + "'s inventory", GameController.LogCommands);
         }
     }
 

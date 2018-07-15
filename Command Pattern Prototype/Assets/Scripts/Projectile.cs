@@ -56,7 +56,7 @@ public class Projectile : MonoBehaviour {
     {
         // Set velocity
         GetComponent<Rigidbody2D>().velocity = vector * speed;
-        GameController.LogPhysics.Log("Trajectory: " + vector);
+        GameController.Log("Trajectory: " + vector, GameController.LogPhysics);
 
         // Set rotation (flip 90 degrees if needed)
         if (!DirectionHelper.IsVertical(DirectionHelper.VectorToDirection(vector)))
