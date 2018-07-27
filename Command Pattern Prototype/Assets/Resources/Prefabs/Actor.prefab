@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 95701055309667148}
   - component: {fileID: 50565690932967518}
   - component: {fileID: 61080170288176442}
-  - component: {fileID: 114028843109904986}
   - component: {fileID: 114777830869088988}
+  - component: {fileID: 114111264211773044}
   m_Layer: 0
   m_Name: Actor
   m_TagString: Player
@@ -195,7 +195,7 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114028843109904986
+--- !u!114 &114111264211773044
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1157451696520398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17dfb647f5e1842848562f60cb6712c3, type: 3}
+  m_Script: {fileID: 11500000, guid: d79886bd7bf534461b6c0050462be8c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
