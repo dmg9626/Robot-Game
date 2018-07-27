@@ -21,15 +21,15 @@
  # Visual Studio / MonoDevelop generated #
  # ===================================== #
  [Ee]xported[Oo]bj/
- .vs/
+ *.vs/
  /*.userprefs
- /*.csproj
+ *.csproj
  /*.pidb
  *.pidb.meta
  /*.suo
- /*.sln*
+ *.sln*
  /*.user
- /*.unityproj
+ *.unityproj
  /*.booproj
  .consulo/
  /*.tmp
