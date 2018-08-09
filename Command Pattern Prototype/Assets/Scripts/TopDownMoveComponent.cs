@@ -18,7 +18,7 @@ public class TopDownMoveComponent : MoveComponent {
     {
         // Move actor in direction of input
         Vector2 movement = input * moveSpeed;
-        gameObject.GetComponent<Rigidbody2D>().velocity = movement;
+        rbody.velocity = movement;
         
         // Calculate new direction if we're moving
         bool moving = input != Vector2.zero;

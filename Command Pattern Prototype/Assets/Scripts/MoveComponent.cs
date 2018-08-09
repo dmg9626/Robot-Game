@@ -21,6 +21,8 @@ public class MoveComponent : MonoBehaviour {
 	/// </summary>
 	protected Animator animator;
 
+	protected Rigidbody2D rbody;
+
 	/// <summary>
 	/// Direction player is currently facing
 	/// </summary>
@@ -29,6 +31,7 @@ public class MoveComponent : MonoBehaviour {
 	protected void Start()
 	{
 		animator = GetComponent<Animator>();
+		rbody = GetComponent<Rigidbody2D>();
 	}
 
     /// <summary>

@@ -31,9 +31,9 @@ public class SideScrollerMoveComponent : MoveComponent
         }
 
         // Move actor in direction of horizontal input
-        Vector2 currentVelocity = GetComponent<Rigidbody2D>().velocity;
+        Vector2 currentVelocity = rbody.velocity;
         currentVelocity.x = ParseHorizontalInput(input, speed).x;
-        GetComponent<Rigidbody2D>().velocity = currentVelocity;
+        rbody.velocity = currentVelocity;
 
         // Animate movement according to input
         AnimateWalk(currentVelocity);
@@ -45,7 +45,7 @@ public class SideScrollerMoveComponent : MoveComponent
     override 
     public void Jump()
     {
-        GetComponent<Rigidbody2D>().velocity += Vector2.up * jumpSpeed;
+        rbody.velocity += Vector2.up * jumpSpeed;
     }
 
     /// <summary>
