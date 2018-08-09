@@ -8,11 +8,6 @@ public class TopDownMoveComponent : MoveComponent {
 	void Start () {
         base.Start();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     /// <summary>
     /// Moves/animates actor based on provided horizontal/vertical input from MoveCommand
@@ -24,27 +19,32 @@ public class TopDownMoveComponent : MoveComponent {
         // Move actor in direction of input
         Vector2 movement = input * moveSpeed;
         gameObject.GetComponent<Rigidbody2D>().velocity = movement;
+        
+        // Calculate new direction if we're moving
+        bool moving = input != Vector2.zero;
+        if(moving) {
+            currentDirection = FaceDirection(input);
+        }
 
         // Set triggers on animator
-        AnimateWalk(input, input != Vector2.zero);
+        if(animator) {
+            AnimateWalk(input, moving);
+        }
     }
-
-    
 
     /// <summary>
     /// Animates movement based on horizontal/vertical input
     /// </summary>
     /// <param name="input">Player input</param>
+    /// <param name="moving">True if player is moving</param>
     protected void AnimateWalk(Vector2 input, bool moving) 
     {
+        // Tell animator if we're moving
         animator.SetBool("Moving", moving);
-        if(moving) {
-            // Get current direction
-            currentDirection = (BaseConstants.Direction)animator.GetInteger("Direction");
 
-            // Calculate and set new direction
-            BaseConstants.Direction newDirection = FaceDirection(input);
-            animator.SetInteger("Direction", (int)newDirection);
+        // Set animator direction if moving
+        if(moving) {
+            animator.SetInteger("Direction", (int)currentDirection);
         }
         
     }
