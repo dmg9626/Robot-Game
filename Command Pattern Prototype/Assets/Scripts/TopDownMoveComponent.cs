@@ -25,16 +25,8 @@ public class TopDownMoveComponent : MoveComponent {
         Vector2 movement = input * moveSpeed;
         gameObject.GetComponent<Rigidbody2D>().velocity = movement;
 
-        // Animate walking if receiving input
-        if (input.x != 0f || input.y != 0f)
-        {
-            animator.SetBool("Moving", true);
-            AnimateWalk(input);
-        }
-        else
-        {
-            animator.SetBool("Moving", false);
-        }
+        // Set triggers on animator
+        AnimateWalk(input, input != Vector2.zero);
     }
 
     
@@ -43,14 +35,18 @@ public class TopDownMoveComponent : MoveComponent {
     /// Animates movement based on horizontal/vertical input
     /// </summary>
     /// <param name="input">Player input</param>
-    protected void AnimateWalk(Vector2 input) 
+    protected void AnimateWalk(Vector2 input, bool moving) 
     {
-        // Get current direction
-        currentDirection = (BaseConstants.Direction)animator.GetInteger("Direction");
+        animator.SetBool("Moving", moving);
+        if(moving) {
+            // Get current direction
+            currentDirection = (BaseConstants.Direction)animator.GetInteger("Direction");
 
-        // Calculate and set new direction
-        BaseConstants.Direction newDirection = FaceDirection(input);
-        animator.SetInteger("Direction", (int)newDirection);
+            // Calculate and set new direction
+            BaseConstants.Direction newDirection = FaceDirection(input);
+            animator.SetInteger("Direction", (int)newDirection);
+        }
+        
     }
 
     /// <summary>
