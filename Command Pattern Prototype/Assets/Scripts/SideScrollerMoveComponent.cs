@@ -20,6 +20,11 @@ public class SideScrollerMoveComponent : MoveComponent
     /// </summary>
     public float jumpSpeed;
 
+    /// <summary>
+    /// Sprite renderer
+    /// </summary>
+    SpriteRenderer spriteRenderer;
+
     override
     public void ManageMovement(Vector2 input)
     {
@@ -75,7 +80,7 @@ public class SideScrollerMoveComponent : MoveComponent
         animator.SetBool("Moving", moving);
 
         // Flip sprite horizontally if facing left
-        GetComponent<SpriteRenderer>().flipX = (currentDirection == BaseConstants.Direction.Left);
+        spriteRenderer.flipX = (currentDirection == BaseConstants.Direction.Left);
     }
 
     /// <summary>
