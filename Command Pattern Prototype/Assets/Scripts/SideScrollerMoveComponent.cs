@@ -23,6 +23,7 @@ public class SideScrollerMoveComponent : MoveComponent
     override
     public void ManageMovement(Vector2 input)
     {
+        // Base movement speed
         float speed = moveSpeed;
 
         // Hold down shift to sprint
@@ -35,8 +36,14 @@ public class SideScrollerMoveComponent : MoveComponent
         currentVelocity.x = ParseHorizontalInput(input, speed).x;
         rbody.velocity = currentVelocity;
 
+        // Get direction if moving
+        bool moving = input.x != 0;
+        if(moving) {
+            currentDirection = InputToDirection(input.x, true);
+        }
+
         // Animate movement according to input
-        AnimateWalk(currentVelocity);
+        AnimateWalk(currentVelocity, moving);
     }
 
     /// <summary>
@@ -62,18 +69,10 @@ public class SideScrollerMoveComponent : MoveComponent
     /// Animates movement based on horizontal/vertical input
     /// </summary>
     /// <param name="input">Player input</param>
-    protected void AnimateWalk(Vector2 input)
+    protected void AnimateWalk(Vector2 input, bool moving)
     {
         // Animate walking if receiving input
-        if (input.x != 0f) {
-            animator.SetBool("Moving", true);
-        }
-        else {
-            animator.SetBool("Moving", false);
-        }
-
-        // Get current direction
-        currentDirection = InputToDirection(input.x, true);
+        animator.SetBool("Moving", moving);
 
         // Flip sprite horizontally if facing left
         GetComponent<SpriteRenderer>().flipX = (currentDirection == BaseConstants.Direction.Left);
